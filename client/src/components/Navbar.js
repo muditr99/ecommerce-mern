@@ -73,7 +73,7 @@ function Navbar() {
             <SearchIcon style={{color:"gray", fontSize:"16px"}} />
           </SearchContainer>
         </Left>
-        <Center><Logo>ECommerce App</Logo></Center>
+        <Center><Logo>VHAN</Logo></Center>
         <Right>
          <MenuItem>Register</MenuItem>
          <MenuItem>Sign In</MenuItem>
