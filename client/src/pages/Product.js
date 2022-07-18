@@ -3,6 +3,8 @@ import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Newsletter from '../components/Newsletter'
+import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 
 const Container = styled.div`
@@ -37,22 +39,67 @@ const Price = styled.span`
 `
 
 const FilterContainer = styled.div`
-  
+  width : 50%;
+  display : flex;
+  justify-content : space-between;
+  margin-top : 50px;
 `
 const Filter = styled.div`
-  
+  display : flex;
+  align-items : center;
 `
 const FilterTitle = styled.span`
-  
+  font-size : 18px;
+  font-weight : 200;
+  margin-right : 6px;
 `
 const FilterColor = styled.div`
-  
+  height : 20px;
+  width : 20px;
+  border-radius : 50%;
+  background-color : ${(props) => {return props.color}};
+  cursor : pointer;
+  margin-right : 5px;
 `
 const FilterSize = styled.select`
-  
+  padding : 5px;
+  cursor : pointer;
 `
 const FilterSizeOption = styled.option`
   
+`
+const AddContainer = styled.div`
+  width : 50%;
+  display : flex;
+  justify-content : space-between;
+  margin-top : 50px;
+`
+const AmountContainer = styled.div`
+  display : flex;
+  align-items : center;
+`
+const Amount = styled.span`
+  font-weight : 600;
+  height : 30px;
+  width : 30px;
+  border-radius : 40%;
+  border : 1px solid teal;
+  margin : 0px 5px;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+`
+const Button = styled.button`
+  padding : 15px;
+  cursor : pointer;
+  background-color : transparent;
+  border : 1px solid grey;
+  color : teal;
+  font-weight : 700;
+
+  &:hover{
+    background-color : #f8f4f4;
+  }
 `
 
 
@@ -93,6 +140,14 @@ function Product() {
                         </FilterSize>
                      </Filter>
                 </FilterContainer>
+                <AddContainer>
+                  <AmountContainer>
+                    <RemoveCircleOutlineOutlinedIcon style={{cursor : 'pointer'}} />
+                    <Amount>1</Amount>
+                    <AddCircleOutlineOutlinedIcon style={{cursor : 'pointer'}} />
+                  </AmountContainer>
+                  <Button>Add To Cart</Button>
+                </AddContainer>
             </InfoContainer>
         </Wrapper>
         <Newsletter />
