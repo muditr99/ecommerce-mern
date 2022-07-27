@@ -4,11 +4,13 @@ const express = require("express");
 const Port = 8000;
 
 const db = require('./config/mongoose');
+const userRoute = require('./routes/index');
 
 const app = express();
 
-// use express router
-app.use('/', require('./routes/index'));
+// middlewares
+app.use(express.json());
+app.use('/', userRoute);
 
 app.listen(Port, function(err){
     if(err){
