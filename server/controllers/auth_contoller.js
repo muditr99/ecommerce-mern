@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const CryptoJS = require('crypto-js');
+const jwt = require('jsonwebtoken');
 
 module.exports.register = function(req, res){
     User.create({
@@ -41,11 +42,17 @@ module.exports.login = async function(req, res){
             });
         }
 
+        const accessToken = jwt.sign({
+            id : user._id,
+            isAdmin : user.isAdmin,
+        }, 'shop', {expiresIn : '3d'})
+
         const { password, ...others } = user._doc;
 
         return res.status(201).json({
             msg : 'Successfully Signed In!',
-            user : others,  
+            user : others,
+            accessToken,  
         })
 
     }catch(err){
