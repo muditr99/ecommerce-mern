@@ -61,3 +61,42 @@ module.exports.getAllUsers = async function(req, res){
         return res.status(500).json(err);
     }
 }
+
+module.exports.getUsersStats = async function(req, res){
+
+    const date = new Date();
+
+    const lastYear = new Date(date.setFullYear(date.getFullYear()-1));
+
+    try{
+        const data = await User.aggregate([
+            {
+                $match : {
+                    createdAt : {
+                        $gte : lastYear,
+                    }
+                }
+            },
+            {
+                $project : {
+                    month : {
+                        $month : "$createdAt",
+                    }
+                }
+            },
+            {
+                $group : {
+                    _id : "$month",
+                    total : {$sum : 1},
+                }
+            }
+        ])
+        
+        return res.status(201).json({
+            UsersStats : data,
+        })
+
+    }catch(err){
+        return res.status(500).json(err);
+    }
+}

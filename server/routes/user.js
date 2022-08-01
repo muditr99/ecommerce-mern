@@ -8,5 +8,6 @@ router.put('/:id', verifyToken, verifyTokenAndAuthorization, userController.upda
 router.delete('/:id', verifyToken, verifyTokenAndAuthorization, userController.deleteUser);
 router.get('/find/:id', verifyToken, verifyTokenAndAdmin, userController.getUser);
 router.get('/find', verifyToken, verifyTokenAndAdmin, userController.getAllUsers);
+router.get('/stats', verifyToken, verifyTokenAndAdmin, userController.getUsersStats);
 
 module.exports = router;
