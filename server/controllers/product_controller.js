@@ -26,7 +26,7 @@ module.exports.updateProduct = async function(req, res){
         }, {new : true});
 
         return res.status(201).json({
-            user : updatedProduct,
+            product : updatedProduct,
         })
 
     }catch(err){
