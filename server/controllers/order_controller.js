@@ -49,7 +49,7 @@ module.exports.deleteOrder = async function(req, res){
 
 module.exports.getUserOrders = async function(req, res){
     try{
-        const orders = await Order.findOne({userId : req.param.id});
+        const orders = await Order.find({userId : req.param.id});
 
         return res.status(201).json({
             orders : orders,
@@ -73,7 +73,7 @@ module.exports.getAllUsersOrders = async function(req, res){
 }
 
 // GET MONTHLY INCOME
-module.exports.getUsersStats = async function(req, res){
+module.exports.getMonthlyIncome = async function(req, res){
 
     const date = new Date(); // 1st aug
 

@@ -8,6 +8,7 @@ router.post('/create', verifyToken, orderController.create);
 router.put('/:id', verifyToken, verifyTokenAndAdmin, orderController.updateOrder);
 router.delete('/:id', verifyToken, verifyTokenAndAdmin, orderController.deleteOrder);
 router.get('/find/:id', verifyToken, verifyTokenAndAuthorization, orderController.getUserOrders);
-router.get('/find', verifyToken, verifyTokenAndAuthorization, orderController.getAllUsersOrders);
+router.get('/find', verifyToken, verifyTokenAndAdmin, orderController.getAllUsersOrders);
+router.get('/monthly-income', verifyToken, verifyTokenAndAdmin, orderController.getMonthlyIncome);
 
 module.exports = router;
