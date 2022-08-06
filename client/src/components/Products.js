@@ -1,6 +1,8 @@
 import { popularProducts } from "../data"
 import Product from "./Product"
 import styled from 'styled-components'
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 
 const Container = styled.div`
@@ -9,7 +11,24 @@ const Container = styled.div`
    flex-wrap : wrap;
 `
 
-function Products() {
+function Products(props) {
+  const [products, setProducts] = useState([]);
+  const [filterProducts, setFilterProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try{
+          const res = await axios.get(
+            props.cat ? `http://localhost:8000/products/find?category=${props.cat}` : "http://localhost:8000/products/find"
+          );
+          console.log(res);
+      }catch(err){
+          console.log(err);
+      }
+  }
+  getProducts();
+  }, [props.cat]);
+  
   return (
     <Container>
         {popularProducts.map((item) => {

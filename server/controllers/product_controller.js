@@ -61,7 +61,7 @@ module.exports.getProduct = async function(req, res){
 
 module.exports.getAllProducts = async function(req, res){
 
-    const qNew = req.query.id;
+    const qNew = req.query.new;
     const qCategory = req.query.category;
 
     try{
