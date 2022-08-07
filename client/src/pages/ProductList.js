@@ -45,6 +45,7 @@ function ProductList() {
   const location = useLocation();
   const cat = location.pathname.split('/')[2];
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState("newest");
 
   const handleFilterColor = (e) => {
     const value = e.target.value;
@@ -64,10 +65,7 @@ function ProductList() {
 
   const handleFilterSort = (e) => {
     const value = e.target.value;
-    setFilter({
-      ...filter,
-      sort : value,
-    })
+    setSort(value);
   }
 
   return (
@@ -82,12 +80,12 @@ function ProductList() {
             <Option disabled>
               Color
             </Option>
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
+            <Option>white</Option>
+            <Option>black</Option>
+            <Option>red</Option>
+            <Option>blue</Option>
+            <Option>yellow</Option>
+            <Option>green</Option>
           </Select>
           <Select name="size" onChange={handleFilterSize}>
             <Option disabled>
@@ -109,7 +107,7 @@ function ProductList() {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products cat={cat} filter={filter}/>
+      <Products cat={cat} filter={filter} sort={sort} />
       <Newsletter />
       <Footer />
     </Container>
