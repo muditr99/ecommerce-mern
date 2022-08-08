@@ -5,7 +5,9 @@ import Navbar from '../components/Navbar'
 import Newsletter from '../components/Newsletter'
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const Container = styled.div`
   
@@ -104,47 +106,74 @@ const Button = styled.button`
 
 
 function Product() {
+
+    const location = useLocation();
+    const id = location.pathname.split('/')[2];
+
+    const [product, setProduct] = useState();
+    const [quantity, setQuantity] = useState(1);
+
+    const handleDecreaseQuantity = (e) => {
+      if(quantity == 1){
+        return;
+      }
+      setQuantity(quantity-1);
+    }
+
+    const handleIncreaseQuantity = (e) => {
+      setQuantity(quantity+1);
+    }
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try{
+                const res = await axios.get(
+                  `http://localhost:8000/products/find/${id}`
+                );
+                setProduct(res.data.product);
+            }catch(err){
+                console.log(err);
+            }
+        }
+        getProduct();
+    }, [id]);
+
+
   return (
     <Container>
         <Announcement />
         <Navbar />
         <Wrapper>
             <ImageContainer>
-                <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+                {product && <Image src={product.img} />}
             </ImageContainer>
             <InfoContainer>
-                <Title>Denim Jumpsuit</Title>
-                <Desc>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-                iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-                tristique tortor pretium ut. Curabitur elit justo, consequat id
-                condimentum ac, volutpat ornare.
-                </Desc>
-                <Price>$ 20</Price>
+                {product && <Title>{product.title}</Title>}
+                {product && <Desc>
+                {product.desc}
+                </Desc>}
+                {product && <Price>$ {product.price}</Price>}
                 <FilterContainer>
                     <Filter>
                         <FilterTitle>Color</FilterTitle>
-                        <FilterColor color="black" />
-                        <FilterColor color="darkblue" />
-                        <FilterColor color="gray" />
+                        {product && product.color.map((color) => {
+                          return <FilterColor color={color} id={color} />
+                        })}
                     </Filter>
                      <Filter>
                         <FilterTitle>Size</FilterTitle>
                         <FilterSize>
-                            <FilterSizeOption>XS</FilterSizeOption>
-                            <FilterSizeOption>S</FilterSizeOption>
-                            <FilterSizeOption>M</FilterSizeOption>
-                            <FilterSizeOption>L</FilterSizeOption>
-                            <FilterSizeOption>XL</FilterSizeOption>
+                        {product && product.size.map((size) => {
+                          return <FilterSizeOption>{size}</FilterSizeOption>
+                        })}
                         </FilterSize>
                      </Filter>
                 </FilterContainer>
                 <AddContainer>
                   <AmountContainer>
-                    <RemoveCircleOutlineOutlinedIcon style={{cursor : 'pointer'}} />
-                    <Amount>1</Amount>
-                    <AddCircleOutlineOutlinedIcon style={{cursor : 'pointer'}} />
+                    <RemoveCircleOutlineOutlinedIcon onClick={handleDecreaseQuantity} style={{cursor : 'pointer'}} />
+                    <Amount>{quantity}</Amount>
+                    <AddCircleOutlineOutlinedIcon onClick={handleIncreaseQuantity} style={{cursor : 'pointer'}} />
                   </AmountContainer>
                   <Button>Add To Cart</Button>
                 </AddContainer>

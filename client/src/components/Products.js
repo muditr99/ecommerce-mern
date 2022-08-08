@@ -28,6 +28,7 @@ function Products(props) {
           console.log(err);
       }
   }
+  
   getProducts();
   }, [props.cat]);
   
