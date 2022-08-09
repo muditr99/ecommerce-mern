@@ -124,6 +124,10 @@ function Product() {
       setQuantity(quantity+1);
     }
 
+    const handleClick = (e) => {
+      
+    }
+
     useEffect(() => {
         const getProduct = async () => {
             try{
@@ -175,7 +179,7 @@ function Product() {
                     <Amount>{quantity}</Amount>
                     <AddCircleOutlineOutlinedIcon onClick={handleIncreaseQuantity} style={{cursor : 'pointer'}} />
                   </AmountContainer>
-                  <Button>Add To Cart</Button>
+                  <Button onClick={handleClick}>Add To Cart</Button>
                 </AddContainer>
             </InfoContainer>
         </Wrapper>

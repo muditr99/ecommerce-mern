@@ -7,9 +7,13 @@ import Cart from './pages/Cart';
 import { Routes, Route } from "react-router-dom"
 import Pay from "./components/Pay";
 import Success from "./components/Success";
+import { useSelector } from 'react-redux';
 
 
 function App() {
+  const state = useSelector((state) => {
+    console.log(state);
+  });
   return (
     <Routes>
       <Route path='/' element={<Home />} />
