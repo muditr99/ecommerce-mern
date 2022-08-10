@@ -8,6 +8,9 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addProduct } from '../actions'
+
 
 const Container = styled.div`
   
@@ -113,6 +116,8 @@ function Product() {
     const [product, setProduct] = useState();
     const [quantity, setQuantity] = useState(1);
 
+    const dispatch = useDispatch();
+
     const handleDecreaseQuantity = (e) => {
       if(quantity == 1){
         return;
@@ -124,9 +129,6 @@ function Product() {
       setQuantity(quantity+1);
     }
 
-    const handleClick = (e) => {
-      
-    }
 
     useEffect(() => {
         const getProduct = async () => {
@@ -179,7 +181,11 @@ function Product() {
                     <Amount>{quantity}</Amount>
                     <AddCircleOutlineOutlinedIcon onClick={handleIncreaseQuantity} style={{cursor : 'pointer'}} />
                   </AmountContainer>
-                  <Button onClick={handleClick}>Add To Cart</Button>
+                  <Button onClick={() => dispatch(addProduct({
+                    product : product,
+                    price : product.price,
+                    quantity,
+                  }))}>Add To Cart</Button>
                 </AddContainer>
             </InfoContainer>
         </Wrapper>

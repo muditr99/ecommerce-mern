@@ -1,5 +1,6 @@
-export const incNum = () => {
+export const addProduct = (item) => {
     return {
-        type : "INCREMENT",
+        type : "ADD_PRODUCT",
+        item : item,
     }
 }

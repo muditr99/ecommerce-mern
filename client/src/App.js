@@ -7,13 +7,15 @@ import Cart from './pages/Cart';
 import { Routes, Route } from "react-router-dom"
 import Pay from "./components/Pay";
 import Success from "./components/Success";
-import { useSelector } from 'react-redux';
+import store from "./store";
 
 
 function App() {
-  const state = useSelector((state) => {
-    console.log(state);
-  });
+
+  // store.subscribe(() => { 
+  //   console.log(store.getState());
+  // })
+
   return (
     <Routes>
       <Route path='/' element={<Home />} />
